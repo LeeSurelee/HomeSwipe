@@ -1123,7 +1123,7 @@
         "intrinsicWidth" : null,
         "invert" : 0,
         "invertEnabled" : 0,
-        "left" : 0,
+        "left" : -128,
         "locked" : false,
         "name" : "Device",
         "opacity" : 1,
