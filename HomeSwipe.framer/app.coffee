@@ -1,3 +1,118 @@
+storyItemNumber = 5
+subItemNumber = 5
+layerGap = 10
+medium = 0
+sub = 0
+subContainer = []
+originalLayers =[enter, enter2, enter3, enter4, enter5]
+subLayers = [sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9, sub10, sub11, sub12, sub13]
+Framer.Defaults.Animation =
+	time: 0.3
+	curve: Bezier.easeInOut
+
+subScroll = new ScrollComponent
+	scrollVertical: false
+	width: Screen.width
+	backgroundColor: null
+	parent: subNavi
+	contentInset: 
+		right: - 550
+subScroll.mouseWheelEnabled = true
+subScroll.draggable.enabled = true
+subScroll.draggable.horizontal = false
+subScroll.draggable.vertical = false
+subScroll.draggable.propagateEvents = false
+subScroll.sendToBack()
+
+subContent = ->
+	for i in [0..6]
+		sub = i
+		layer = subLayers[i]
+		layer.parent = subScroll.content
+		layer.y = 12
+		if i < 1
+			layer.x = 14
+		else
+			layer.x = subContainer[sub - 1].x + subContainer[sub - 1].width + 23
+# 		layer.onClick ->
+# 			flow.showNext($2)
+		subContainer.push(layer)
+BG.sendToBack()
+
+subContent()
+subContainer[0].color = "#FF8200"
+subContainer[0].fontFamily = '-apple-system'
+subContainer[0].fontWeight = 500
+
+
+homePageItem = []
+homePageContent = ->
+	number = 3
+	homeItemNumber = Math.ceil(number)
+	for i in [0...2]
+		medium = i			
+		layer = Utils.randomChoice(originalLayers).copy()
+		layer.x = Align.center
+		layer.parent = hotContent
+		if i < 1
+			layer.y = 116
+		else 
+			layer.y = 116 + homePageItem[0].height + layerGap
+# 			print homePageItem[0].height
+		homePageItem.push(layer)
+homePageContent()
+destroyhomePage = ->
+	for layer in homePageItem
+		layer.destroy()
+
+refresh = ->
+	destroyhomePage()
+	homePageContent()
+# 	scroll.animate
+# 		scrollY: 0
+# 		y: 0
+# 		options: 
+# 			time: 0.01
+	
+	
+
+
+TextLayerContainer = []
+subPopupActionContainer = []
+
+indexNumber = 0
+for layer,i in subContainer
+	layer.onClick ->
+		for layer,i in subContainer
+			layer.color = '#333333'
+			layer.fontWeight = ''
+			this.color = '#FF8200'
+			this.fontFamily = '-apple-system'
+			this.fontWeight = 500
+		indexNumber = this.index - 16
+# 		print indexNumber
+		if indexNumber >= 0 and indexNumber <= 3
+			subScroll.animate
+				scrollX: 0
+		if indexNumber > 3 and indexNumber < 7
+			subScroll.animate
+				scrollX: subContainer[indexNumber].x - 200 - subContainer[indexNumber].width
+# 		if indexNumber < 13 and indexNumber >= 10
+# 			subScroll.animate
+# 				scrollX: subContainer[12].x
+		for layer in TextLayerContainer
+			layer.color = '#333333'
+			layer.fontWeight = ''
+			TextLayerContainer[indexNumber-1].color = '#FF8200'
+			TextLayerContainer[indexNumber-1].fontFamily = '-apple-system'
+			TextLayerContainer[indexNumber-1].fontWeight = 500
+		refresh()
+# 		overdrag()
+
+
+
+
+		
 TopPadding = Top.height
 
 page = new PageComponent
@@ -7,6 +122,8 @@ page = new PageComponent
 	backgroundColor: "null"
 	scrollVertical: false
 page.sendToBack()
+page.draggable.enabled = false
+page.draggable.propagateEvents = false
 # homeContent.parent = page.content
 # homeContent.y = 0
 # homeContent.x = 0
