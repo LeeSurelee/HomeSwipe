@@ -6,7 +6,7 @@ sub = 0
 subContainer = []
 originalLayers =[enter, enter2, enter3, enter4, enter5]
 subLayers = [sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9, sub10, sub11, sub12, sub13]
-
+Framer.Device.contentScale = (Screen.width / 375)
 Device.clip = true
 Framer.Defaults.Animation =
 	time: 0.3
