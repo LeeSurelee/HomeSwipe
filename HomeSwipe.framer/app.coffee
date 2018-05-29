@@ -1,3 +1,21 @@
+# ratio = 375 / 375
+# Framer.Device.contentScale = 1/ratio
+# 
+# 
+# # Framer.DeviceComponent.Devices["my-device"] =
+# # 	name: "My Device"
+# # 	deviceType: "mobile"
+# # 	deviceImage: "my-device.png"
+# # # 	deviceImageWidth: 472
+# # # 	deviceImageHeight: 806
+# # 	screenWidth: 375
+# # 	screenHeight: 667
+# # Framer.DeviceComponent.deviceType = "my-device"
+Device.props =
+	width: 375
+	height: 667
+	x: Align.center
+	y: Align.center
 storyItemNumber = 5
 subItemNumber = 5
 layerGap = 10
@@ -6,15 +24,15 @@ sub = 0
 subContainer = []
 originalLayers =[enter, enter2, enter3, enter4, enter5]
 subLayers = [sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9, sub10, sub11, sub12, sub13]
-Framer.Device.contentScale = (Screen.width / 375)
+Framer.Device.contentScale = (375 / 375)
 Device.clip = true
 Framer.Defaults.Animation =
 	time: 0.3
 	curve: Bezier.easeInOut
-
+	
 subScroll = new ScrollComponent
 	scrollVertical: false
-	width: Screen.width
+	width: 375
 	backgroundColor: null
 	parent: subNavi
 	contentInset: 
@@ -54,7 +72,7 @@ homePageContent = ->
 	for i in [0...2]
 		medium = i			
 		layer = Utils.randomChoice(originalLayers).copy()
-		layer.x = Align.center
+		layer.x = 0
 		layer.parent = hotContent
 		if i < 1
 			layer.y = 116
@@ -118,7 +136,7 @@ for layer,i in subContainer
 TopPadding = Top.height
 
 page = new PageComponent
-	width: Screen.width
+	width: 375
 	height: 1057
 	parent: Device
 	backgroundColor: "null"
@@ -147,11 +165,11 @@ RightEdge.draggable.vertical = false
 RightEdge.draggable.propagateEvents = false
 
 Story2.parent = Device
-Story2.x = -Screen.width
+Story2.x = -375
 Story2.y = 0
 
 Search2.parent = Device
-Search2.x = Screen.width
+Search2.x = 375
 Search2.y = 0
 
 
