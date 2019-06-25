@@ -235,6 +235,42 @@ markToHot = new Animation
 # 	time: 0.25
 # 	curve: "ease"
 
+ls = [l1,l3]
+lss = [l1,l2,l3,l22]
+l22.states =
+	a:
+		opacity: 0
+		rotation: 0
+		scale: 1
+	b:
+		opacity: 1
+		rotation: 135
+		scale:1.2
+l22.stateSwitch('a')
+
+for layer in ls
+	layer.states =
+		a:
+			opacity: 1
+			rotation: 0
+		b:
+			opacity: 0
+			rotation: 45
+	layer.stateSwitch('a')
+
+l2.states =
+	a:
+		opacity: 1
+		rotation: 0
+		scale: 1
+	b:
+		opacity: 1
+		rotation: 45
+		scale: 1.2
+
+icon.bringToFront()
+icon.opacity = 0
+
 popup1.states = 
 	a:
 		y: Top.height - popup1.height
@@ -246,6 +282,14 @@ popup2.states =
 		y: Top.height - popup2.height
 	b:
 		y: Top.height
+
+popup2title.states = 
+	a:
+		opacity: 0
+	b:
+		options: 1
+popup2title.stateSwitch('a')
+popup2title.sendToBack()
 
 popup2.stateSwitch('a')
 mask.states =
@@ -266,22 +310,33 @@ homeTitle.onClick ->
 mask.onClick ->
 	popup1.stateCycle('a')
 	popup2.stateCycle('a')
+	for layer in lss
+			layer.stateCycle('a')
 	mask.stateCycle('a')
+	Utils.delay 0.2, ->
+		popup2title.stateCycle('a')
 	Utils.delay 0.3, ->
 		mask.sendToBack()
+		Utils.delay 0.3, ->
+			popup2title.sendToBack()
 
 hotmore.onClick ->
 	if cpage0 >= 1 && cpage0 <= 4
+		popup2title.placeBehind(icon)
+		popup2title.animate
+			opacity: 1
 		mask.placeBehind(popup2)
 		Bottom.placeBefore(popup2)
 		popup2.stateCycle('b','a')
 		mask.stateCycle('b','a')
+		for layer in lss
+			layer.stateCycle('b','a')
 
 homeTitle.fontWeight = 600
 markScrollControl = ->
 	if page.content.x <= 0 && page.content.x >= -375 + 187.5
-		tabMask.width = Utils.modulate(page.content.x, [0, -375 + 187.5], [24, 89])
-		tabMask.x = 114
+		tabMask.width = Utils.modulate(page.content.x, [0, -375 + 187.5], [24+8, 89+8])
+		tabMask.x = 114-4
 		tabColorPad.x = 0
 		homeTitle.opacity = Utils.modulate(page.content.x, [-375, -750 + 187.5], [1, 0.75])
 		homeTitleIcon.opacity = Utils.modulate(page.content.x, [-375, -750 + 187.5], [1, 0.75])
@@ -293,28 +348,32 @@ markScrollControl = ->
 # 		
 	else if page.content.x < -375 + 187.5 && page.content.x >= -375
 		tabColorPad.x = Utils.modulate(page.content.x, [ -375 + 187.5,-375], [0, -64])
-		tabMask.width = Utils.modulate(page.content.x, [-375 + 187.5, -375], [89, 24])
-		tabMask.x = Utils.modulate(page.content.x, [-375 + 187.5, -375], [114, 178])
+		tabMask.width = Utils.modulate(page.content.x, [-375 + 187.5, -375], [89+8, 24+8])
+		tabMask.x = Utils.modulate(page.content.x, [-375 + 187.5, -375], [114-4, 178-4])
 # 		tabColorPad.x = Utils.modulate(page.content.x, [-750 + 187.5, -750], [0, -142])
 		homeTitle.opacity = Utils.modulate(page.content.x, [-375 + 187.5, -375], [0.75, 0.5])
 		homeTitleIcon.opacity = Utils.modulate(page.content.x, [-375 + 187.5, -375], [0.75, 0.5])
 		hotTitle.opacity = Utils.modulate(page.content.x, [-375 + 187.5, -375], [ 0.75, 1])
 		hotTitle.fontWeight = 600
 		homeTitle.fontWeight = 400
+		icon.x = Utils.modulate(page.content.x, [-375 + 187.5, -375], [346+187.5, 346])
+		icon.opacity = Utils.modulate(page.content.x, [-375 + 180, -375], [ 0, 1])
 		hotTitle.scale = Utils.modulate(page.content.x, [-375 + 187.5, -375], [1.02, 1])
 # 		homeTitle.scale = Utils.modulate(page.content.x, [-375 + 187.5, -375], [1.02, 1])
 	if page.content.x <= -1500 && page.content.x >= -1875 + 187.5
 		tabColorPad.x = -64
-		tabMask.x = 178
+		tabMask.x = 178-4
 		hotTitle.fontWeight = 600
 		nearbyTitle.fontWeight = 400
-		tabMask.width = Utils.modulate(page.content.x, [-1500, -1875 + 187.5], [24, 80])
+		icon.x = Utils.modulate(page.content.x, [-1500, -1875 + 187.5], [346, 346-187.5])
+		tabMask.width = Utils.modulate(page.content.x, [-1500, -1875 + 187.5], [24+8, 80])
 		hotTitle.opacity = Utils.modulate(page.content.x, [-1500, -1875 + 187.5], [1,0.75])
 		nearbyTitle.opacity = Utils.modulate(page.content.x, [-1500, -1875 + 187.5], [0.5, 0.75])
 	else if page.content.x < -1875 + 187.5 && page.content.x >= -1875
+		icon.x = Utils.modulate(page.content.x, [-1875 + 187.5, -1875], [346-187.5, 346-375])
 		tabColorPad.x = Utils.modulate(page.content.x, [-1875 + 187.5,-1875], [-64, -120])
-		tabMask.width = Utils.modulate(page.content.x, [-1875 + 187.5,-1875], [80, 24])
-		tabMask.x = Utils.modulate(page.content.x, [-1875 + 187.5,-1875], [178, 234])
+		tabMask.width = Utils.modulate(page.content.x, [-1875 + 187.5,-1875], [80, 24+8])
+		tabMask.x = Utils.modulate(page.content.x, [-1875 + 187.5,-1875], [178-4, 234-4])
 		hotTitle.fontWeight = 400
 		nearbyTitle.fontWeight = 600
 		hotTitle.opacity = Utils.modulate(page.content.x, [-1875 + 187.5,-1875], [ 0.75, 0.5])
@@ -358,10 +417,12 @@ page.content.on "change:x", -> markScrollControl()
 page.on "change:currentPage", ->
 	cpage0 = page.content.subLayers.indexOf(page.currentPage)
 # 	print cpage0
-	if cpage0 >= 1 || cpage0 <= 4
+	if cpage0 >= 1 && cpage0 <= 4
 		cpage = cpage0
+# 		icon.opacity = 1
 	else
 		cpage = 0
+# 		icon.opacity = 0
 	num = page.content.subLayers.indexOf(page.currentPage)
 	for i in [0..3]
 		if i == num-1
