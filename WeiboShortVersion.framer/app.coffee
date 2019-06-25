@@ -220,14 +220,14 @@ RightEdge.draggable.propagateEvents = false
 page.content.on "change:x" ,->
 	top.x = 0
 	Bottom.x = 0
-	print page.content.x
-	if page.content.x <= 0 && page.content.x >= -375
-		subNavi.x = Utils.modulate(page.content.x,[0,-375], [375,0])
+# 	print page.content.x
+	if page.content.x <= -375*3 && page.content.x >= -375*4
+		subNavi0.x = Utils.modulate(page.content.x,[-375*3,-375*4], [0,-375])
 # 		FixedStatusBar.opacity = Utils.modulate(page.content.x,[0,-375], [0,1])
-	else if page.content.x <= -1875+375 && page.content.x >= -2250+375
-		subNavi.x = Utils.modulate(page.content.x,[-1875+375,-2250+375], [0,-375])
-# 	else if page.content.x <= -750 && page.content.x >= -1125
-# 		FixedStatusBar.opacity = Utils.modulate(page.content.x,[-1124,-1125], [1,0])
+# 	else if page.content.x <= -375*4 && page.content.x >= -375*5
+		subNavi.x = Utils.modulate(page.content.x,[-375*3,-375*4], [375,0])
+	else if page.content.x <= -375*7 && page.content.x >= -375*8
+		subNavi.x = Utils.modulate(page.content.x,[-375*7,-375*8], [0,-375])
 
 tabMask.clip = true
 
@@ -257,6 +257,7 @@ markToHot = new Animation
 
 ls = [l1,l3]
 lss = [l1,l2,l3,l22]
+
 l22.states =
 	a:
 		opacity: 0
@@ -290,6 +291,44 @@ l2.states =
 
 icon.bringToFront()
 icon.opacity = 0
+
+
+ls0 = [l10,l30]
+lss0 = [l10,l20,l30,l220]
+
+l220.states =
+	a:
+		opacity: 0
+		rotation: 0
+		scale: 1
+	b:
+		opacity: 1
+		rotation: 135
+		scale:1.2
+l220.stateSwitch('a')
+
+for layer in ls0
+	layer.states =
+		a:
+			opacity: 1
+			rotation: 0
+		b:
+			opacity: 0
+			rotation: 45
+	layer.stateSwitch('a')
+
+l20.states =
+	a:
+		opacity: 1
+		rotation: 0
+		scale: 1
+	b:
+		opacity: 1
+		rotation: 45
+		scale: 1.2
+
+icon0.bringToFront()
+icon0.opacity = 1
 
 popup1.states = 
 	a:
@@ -330,18 +369,12 @@ mask.stateSwitch('a')
 mask.sendToBack()
 popup1.stateSwitch('a')
 
-homeTitle.onClick ->
-	if cpage0 == 0
-		mask.placeBehind(popup1)
-		popup1.stateCycle('b','a')
-		mask.stateCycle('b','a')
-		popup1title.placeBehind(icon)
-		popup1title.opacity = 1
-
 mask.onClick ->
 	popup1.stateCycle('a')
 	popup2.stateCycle('a')
 	for layer in lss
+			layer.stateCycle('a')
+	for layer in lss0
 			layer.stateCycle('a')
 	mask.stateCycle('a')
 	Utils.delay 0.2, ->
@@ -354,7 +387,7 @@ mask.onClick ->
 			popup1title.sendToBack()
 
 hotmore.onClick ->
-	if cpage0 >= 1 && cpage0 <= 4
+	if cpage0 >= 4 && cpage0 <= 7
 		popup2title.placeBehind(icon)
 		popup2title.opacity = 1
 		mask.placeBehind(popup2)
@@ -364,6 +397,17 @@ hotmore.onClick ->
 		for layer in lss
 			layer.stateCycle('b','a')
 
+hotmore0.onClick ->
+	if cpage0 >= 0 && cpage0 < 4
+		popup1title.placeBehind(icon0)
+		popup1title.opacity = 1
+		mask.placeBehind(popup1)
+# 		Bottom.placeBehind(popup2)
+		popup1.stateCycle('b','a')
+		mask.stateCycle('b','a')
+		for layer in lss0
+			layer.stateCycle('b','a')
+			
 
 addnumb = 3
 addnumb0 = -375*3
@@ -378,6 +422,7 @@ markScrollControl = ->
 		hotTitle.fontWeight = 400
 		homeTitle.fontWeight = 600
 		hotTitle.opacity = Utils.modulate(page.content.x, [addnumb0, -375+ addnumb0 + 187.5], [0.5, 0.75])
+		icon0.x = Utils.modulate(page.content.x, [addnumb0,-375 + addnumb0 + 187.5], [346, 346-187.5])
 # 		hotTitle.scale = Utils.modulate(page.content.x, [-375, -750 + 187.5], [1, 1.02])
 # 		homeTitle.scale = Utils.modulate(page.content.x, [0, -375 + 187.5], [1, 1.02])
 # 		
@@ -385,6 +430,7 @@ markScrollControl = ->
 		tabColorPad.x = Utils.modulate(page.content.x, [ -375+ addnumb0 + 187.5,-375+ addnumb0], [0, -64])
 		tabMask.width = Utils.modulate(page.content.x, [-375+ addnumb0 + 187.5, -375+ addnumb0], [89+8, 24+8])
 		tabMask.x = Utils.modulate(page.content.x, [-375+ addnumb0 + 187.5, -375+ addnumb0], [114-4, 178-4])
+		icon0.x = Utils.modulate(page.content.x, [375+ addnumb0 + 187.5,-375+ addnumb0], [346-187.5, 346-375])
 # 		tabColorPad.x = Utils.modulate(page.content.x, [-750 + 187.5, -750], [0, -142])
 		homeTitle.opacity = Utils.modulate(page.content.x, [-375+ addnumb0 + 187.5, -375+ addnumb0], [0.75, 0.5])
 		homeTitleIcon.opacity = Utils.modulate(page.content.x, [-375+ addnumb0+ 187.5, -375+ addnumb0], [0.75, 0.5])
@@ -416,12 +462,19 @@ markScrollControl = ->
 		
 
 homeTitle.onClick ->
-	page.snapToPage(homeContent,false)
+	tabColorPad.x = 0
 	hotTitle.opacity = 0.5
 	nearbyTitle.opacity = .5
+	homeTitle.opacity = 1
 	tabMask.width = 24 +8
 	tabMask.x = 114 - 4
-# 	tabColorPad.x = 0
+	hotTitle.fontWeight = 400
+	nearbyTitle.fontWeight = 400
+	homeTitle.fontWeight = 600
+	page.snapToPage(homeContent,false)
+	icon0.x = 346
+	subNavi0.x = 0
+
 
 cpage0 = 0
 cpage = 0
@@ -429,17 +482,12 @@ hotTitle.onClick ->
 	homeTitle.opacity = .5
 	nearbyTitle.opacity = .5
 	tabMask.width = 24 + 8
-
-	if cpage0 == 1
-		page.snapToPage(hotsubcontent[0],false)
-	else if cpage0 == 2
-		page.snapToPage(hotsubcontent[1],false)
-	else if cpage0 == 3
-		page.snapToPage(hotsubcontent[2],false)
-	else if cpage0 == 4
-		page.snapToPage(hotsubcontent[3],false)
-	else
-		page.snapToPage(hotsubcontent[0],false)
+	nearbyTitle.fontWeight = 400
+	homeTitle.fontWeight = 400
+	page.snapToPage(hotsubcontent[3],false)
+	icon.opacity = 1
+	
+		
 nearbyTitle.onClick ->
 	tabColorPad.x = -120
 	page.snapToPage(Search,false)
@@ -447,11 +495,15 @@ nearbyTitle.onClick ->
 	hotTitle.opacity = 0.5
 	tabMask.width = 24 + 8
 	tabMask.x = 234
+	hotTitle.fontWeight = 400
+	homeTitle.fontWeight = 400
+	icon0.x = 346-375
+	subNavi0.x = -375
 page.content.on "change:x", -> markScrollControl()
 
 page.on "change:currentPage", ->
 	cpage0 = page.content.subLayers.indexOf(page.currentPage)
-# 	print cpage0
+
 	if cpage0 >= 1 && cpage0 <= 4
 		cpage = cpage0
 # 		icon.opacity = 1
@@ -459,23 +511,41 @@ page.on "change:currentPage", ->
 		cpage = 0
 # 		icon.opacity = 0
 	num = page.content.subLayers.indexOf(page.currentPage)
+# 	print num
 	for i in [0..3]
-		if i == num-1
+		if i == num-4
 			subLayers[i].color = "#FE9600"
 			subLayers[i].fontWeight = 600
+			icon0.opacity = 1
 		else
 			subLayers[i].color = "#333"
 			subLayers[i].fontWeight = 400
+	for i in [0..3]
+		if i == num
+			subLayers0[i].color = "#FE9600"
+			subLayers0[i].fontWeight = 600
+		else
+			subLayers0[i].color = "#333"
+			subLayers0[i].fontWeight = 400
 
 subLayers[0].onClick ->
-	page.snapToPage(hotsubcontent[0])
-subLayers[1].onClick ->
-	page.snapToPage(hotsubcontent[1])
-subLayers[2].onClick ->
-	page.snapToPage(hotsubcontent[2])
-subLayers[3].onClick ->
 	page.snapToPage(hotsubcontent[3])
+subLayers[1].onClick ->
+	page.snapToPage(hotsubcontent[4])
+subLayers[2].onClick ->
+	page.snapToPage(hotsubcontent[5])
+subLayers[3].onClick ->
+	page.snapToPage(hotsubcontent[6])
 # 	print num
+
+subLayers0[0].onClick ->
+	page.snapToPage(homeContent)
+subLayers0[1].onClick ->
+	page.snapToPage(hotsubcontent[0])
+subLayers0[2].onClick ->
+	page.snapToPage(hotsubcontent[1])
+subLayers0[3].onClick ->
+	page.snapToPage(hotsubcontent[2])
 
 # markToMain.on Events.AnimationEnd, -> 
 # 	print 1
