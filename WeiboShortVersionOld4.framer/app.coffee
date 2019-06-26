@@ -371,14 +371,14 @@ markScrollControl = ->
 		hotTitle.fontWeight = 600
 		nearbyTitle.fontWeight = 400
 		icon.x = Utils.modulate(page.content.x, [a,b], [346, 346-187.5])
-		tabMask.width = Utils.modulate(page.content.x, [a,b], [24+8, 80])
+		tabMask.width = Utils.modulate(page.content.x, [a,b], [24+8, 87+8])
 		hotTitle.opacity = Utils.modulate(page.content.x, [a,b], [1,0.75])
 		nearbyTitle.opacity = Utils.modulate(page.content.x, [a,b], [0.5, 0.75])
 	else if page.content.x < c && page.content.x >= d
 		icon.x = Utils.modulate(page.content.x, [c,d], [346-187.5, 346-375])
-		tabColorPad.x = Utils.modulate(page.content.x, [c,d], [-64, -120])
-		tabMask.width = Utils.modulate(page.content.x, [c,d], [80, 24+8])
-		tabMask.x = Utils.modulate(page.content.x, [c,d], [178-4, 234-4])
+		tabColorPad.x = Utils.modulate(page.content.x, [c,d], [-64, -120-7])
+		tabMask.width = Utils.modulate(page.content.x, [c,d], [87+8, 24+8])
+		tabMask.x = Utils.modulate(page.content.x, [c,d], [178-4, 234+3])
 		hotTitle.fontWeight = 400
 		nearbyTitle.fontWeight = 600
 		hotTitle.opacity = Utils.modulate(page.content.x, [c,d], [ 0.75, 0.5])
@@ -427,8 +427,8 @@ nearbyTitle.onClick ->
 	page.snapToPage(Search,false)
 	homeTitle.opacity = .5
 	hotTitle.opacity = 0.5
-	tabMask.width = 24
-	tabMask.x = 234
+	tabMask.width = 24 + 8
+	tabMask.x = 234 + 3
 	hotTitleIcon.opacity = .5
 page.content.on "change:x", -> markScrollControl()
 

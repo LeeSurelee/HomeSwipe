@@ -1564,7 +1564,7 @@
                 "bottom" : 12,
                 "brightness" : 100,
                 "brightnessEnabled" : 0,
-                "centerAnchorX" : 0.65466666666666662,
+                "centerAnchorX" : 0.67333333333333334,
                 "centerAnchorY" : 0.66153846153846152,
                 "constraintsLocked" : false,
                 "contrast" : 100,
@@ -1587,7 +1587,7 @@
                 "name" : "nearbyTitle",
                 "opacity" : 0.5,
                 "parentid" : "rGi4CwB5y",
-                "right" : 112,
+                "right" : 105,
                 "rotation" : 0,
                 "saturate" : 100,
                 "saturateEnabled" : 0,
@@ -1779,7 +1779,7 @@
                     ],
                     "brightness" : 100,
                     "brightnessEnabled" : 0,
-                    "centerAnchorX" : 2.9791666666666665,
+                    "centerAnchorX" : 2.46875,
                     "centerAnchorY" : 0.5,
                     "children" : [
 
@@ -1830,7 +1830,7 @@
                     "radiusPerCorner" : false,
                     "radiusTopLeft" : 0,
                     "radiusTopRight" : 0,
-                    "right" : -119,
+                    "right" : -126,
                     "rotation" : 0,
                     "saturate" : 100,
                     "saturateEnabled" : 0,
@@ -1839,7 +1839,7 @@
                     "targetName" : "tabColorPad",
                     "top" : 0,
                     "visible" : true,
-                    "width" : 143,
+                    "width" : 158,
                     "widthFactor" : null
                   }
                 ],
