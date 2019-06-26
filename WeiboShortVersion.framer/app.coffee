@@ -27,6 +27,8 @@ Device.height = 667
 Device.clip = true
 popup1.clip = true
 popup2.clip = true
+# popup1title.clip = true
+# popup2title.clip = true
 
 
 if Screen.height >= 667 || Screen.width == 375
@@ -394,6 +396,7 @@ hotmore.onClick ->
 # 		Bottom.placeBehind(popup2)
 		popup2.stateCycle('b','a')
 		mask.stateCycle('b','a')
+		Top.bringToFront()
 		for layer in lss
 			layer.stateCycle('b','a')
 
@@ -405,6 +408,7 @@ hotmore0.onClick ->
 # 		Bottom.placeBehind(popup2)
 		popup1.stateCycle('b','a')
 		mask.stateCycle('b','a')
+		Top.bringToFront()
 		for layer in lss0
 			layer.stateCycle('b','a')
 			
