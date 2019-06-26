@@ -2857,7 +2857,7 @@
                     ],
                     "brightness" : 100,
                     "brightnessEnabled" : 0,
-                    "centerAnchorX" : 2.9791666666666665,
+                    "centerAnchorX" : 2.453125,
                     "centerAnchorY" : 0.5,
                     "children" : [
 
@@ -2908,7 +2908,7 @@
                     "radiusPerCorner" : false,
                     "radiusTopLeft" : 0,
                     "radiusTopRight" : 0,
-                    "right" : -119,
+                    "right" : -125,
                     "rotation" : 0,
                     "saturate" : 100,
                     "saturateEnabled" : 0,
@@ -2917,7 +2917,7 @@
                     "targetName" : "tabColorPad",
                     "top" : 0,
                     "visible" : true,
-                    "width" : 143,
+                    "width" : 157,
                     "widthFactor" : null
                   }
                 ],

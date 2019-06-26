@@ -498,7 +498,7 @@ nearbyTitle.onClick ->
 	homeTitle.opacity = .5
 	hotTitle.opacity = 0.5
 	tabMask.width = 24 + 8
-	tabMask.x = 234
+	tabMask.x = 234 - 4
 	hotTitle.fontWeight = 400
 	homeTitle.fontWeight = 400
 	icon0.x = 346-375
